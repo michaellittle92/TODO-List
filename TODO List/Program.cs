@@ -5,7 +5,11 @@ class Program
     private static void Main(string[] args)
     {
         Loading();
-        Menu();
+        while (true)
+        {
+            Menu();
+        }
+       
     }
 
     private static void Loading()
@@ -17,7 +21,6 @@ class Program
 
     private static void Menu()
     {
-        string? userInput;
         Console.WriteLine("Todo list app!");
         Console.WriteLine("------------");
         Console.WriteLine("1 - View All Tasks");
@@ -26,35 +29,43 @@ class Program
         Console.WriteLine("4 - Delete Existing Task");
         Console.WriteLine("5 - Exit Program");
             
-        Console.WriteLine("Please, enter a number between 1 and 5");
-        userInput = Console.ReadLine();
-            
-        Console.WriteLine(userInput);
-
-        while (userInput.Length > 1 || userInput.Length == 0 || int.Parse(userInput) > 5)
-        {
-            Console.WriteLine("Please, enter a number between 1 and 5");
-            userInput = Console.ReadLine();
-        }
+        int userInput = GetValidMenuOption();
 
         switch (userInput)
         {
-            case "1":
+            case 1:
                 Console.WriteLine("View All Tasks:");
                 break;
-            case "2":
+            case 2:
                 Console.WriteLine("Add new Task:");
                 break;
-            case "3":
+            case 3:
                 Console.WriteLine("Edit Existing Task:");
                 break;
-            case "4":
+            case 4:
                 Console.WriteLine("Delete Existing Task:");
                 break;
-            case "5":
+            case 5:
                 Console.WriteLine("Exiting Program");
                     System.Environment.Exit(0); 
                 break;
         }
+    }
+
+    private static int GetValidMenuOption()
+    {
+        int userInput;
+        while (true)
+        {
+            Console.WriteLine("Please enter a number between 1 and 5");
+            string input = Console.ReadLine();
+            if (int.TryParse(input, out userInput) && userInput >= 1 && userInput <= 5)
+            {
+                break;
+            }
+
+            Console.WriteLine("Invalid Input, Please, enter a number between 1 and 5");
+        }
+        return userInput;
     }
 } 
